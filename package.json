@@ -3,25 +3,89 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
+    "bootstrap": "^5.1.3",
+    "clsx": "^1.1.1",
+    "lodash.isequal": "^4.0.0",
+    "prop-types": "^15.8.1",
     "react": "^18.0.0",
+    "react-bootstrap": "^2.3.0",
     "react-dom": "^18.0.0",
+    "react-draggable": "^4.0.0",
+    "react-grid-layout": "^1.3.4",
+    "react-resizable": "^3.0.4",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "lint": "make lint",
+    "test": "make test",
+    "build": "make build",
+    "build-example": "make build-example",
+    "view-example": "make view-example",
+    "dev": "make dev",
+    "prepublishOnly": "make build",
+    "validate": "npm ls",
+    "flow": "flow",
+    "fmt": "prettier --write ./**.{json,js,yml,md}",
+    "fmt:check": "prettier --check ./**.{json,js,yml,md}"
   },
+  "keywords": [
+    "react",
+    "grid",
+    "drag",
+    "draggable",
+    "resize",
+    "resizable",
+    "fluid",
+    "responsive"
+  ],
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.3",
+    "@babel/core": "^7.17.5",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-transform-flow-comments": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-flow": "^7.16.7",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/register": "^7.17.0",
+    "@webpack-cli/serve": "^1.6.1",
+    "babel-jest": "^27.5.1",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-preval": "^5.1.0",
+    "css-loader": "^6.6.0",
+    "ejs": "^3.1.6",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "enzyme-to-json": "^3.6.2",
+    "eslint": "^8.9.0",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-plugin-mocha": "^10.0.3",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-unicorn": "^41.0.0",
+    "exports-loader": "^3.0.0",
+    "flow-bin": "^0.172.0",
+    "husky": "^7.0.2",
+    "imports-loader": "^3.0.0",
+    "jest": "^27.5.1",
+    "lint-staged": "^12.3.4",
+    "lodash": "^4.17.21",
+    "opener": "^1.5.2",
+    "prettier": "^2.3.2",
+    "react-hot-loader": "^4.13.0",
+    "react-transform-hmr": "^1.0.2",
+    "style-loader": "^3.2.1",
+    "timsort": "^0.3.0",
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
   },
   "browserslist": {
     "production": [
@@ -33,6 +97,12 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,jsx,css}": [
+      "eslint --ext .js,.jsx --fix",
+      "yarn fmt"
     ]
   }
 }
