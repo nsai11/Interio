@@ -1,6 +1,9 @@
 import React from "react";
 import _ from "lodash";
 import RGL, { WidthProvider } from "react-grid-layout";
+import Toast from 'react-bootstrap/Toast';
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -26,15 +29,45 @@ constructor(props) {
         x: i * 2,
         y: 0,
         w: 2,
-        h: 2
+        h: 2,
       };
     }),
     newCounter: 0
   };
-
+  this.findWidth = this.findWidth.bind(this);
   this.onAddItem = this.onAddItem.bind(this);
   this.onBreakpointChange = this.onBreakpointChange.bind(this);
 }
+
+ findWidth = () =>{
+  if(this.state.i == 0)//sofa
+    this.setState({w:4});
+//   else if(this.state.i == 1)//plant
+//     return 1;
+//   else if(this.state.i == 2)//bed
+//     return 5;
+//   else if(item  == 3)//center table
+//     return 2;
+//   else if(item == 4)//single sofa
+//     return 2;
+//   else if(item == 5)//shelf
+//     return 3;
+}
+
+// findHeight(item){
+//   if(item == 0)//sofa
+//     return 2;
+//   else if(item == 1)//plant
+//     return 1;
+//   else if(item == 2)//bed
+//     return 3;
+//   else if(item  == 3)//center table
+//     return 2;
+//   else if(item == 4)//single sofa
+//     return 2;
+//   else if(item == 5)//shelf
+//     return 2;
+// }
 
 createElement(el) {
   const removeStyle = {
@@ -96,14 +129,16 @@ onRemoveItem(i) {
 render() {
   return (
     <div>
-      <button onClick={this.onAddItem}>Add Item</button>
-      <ReactGridLayout
+        <ReactGridLayout
         onLayoutChange={this.onLayoutChange}
         onBreakpointChange={this.onBreakpointChange}
         {...this.props}
-      >
-        {_.map(this.state.items, el => this.createElement(el))}
-      </ReactGridLayout>
+        >
+          {_.map(this.state.items, el => this.createElement(el))}
+        </ReactGridLayout>
+        <Container>
+          <Button onClick={this.onAddItem}>Add Item</Button>
+        </Container>
     </div>
   );
 }
