@@ -25,8 +25,8 @@ body {
     box-sizing: border-box;
   }
   .react-grid-item:not(.react-grid-placeholder) {
-    background: #ccc;
-    border: 1px solid black;
+    background: transparent;
+    border: none;
   }
   .react-grid-item.resizing {
     opacity: 0.9;

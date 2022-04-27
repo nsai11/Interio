@@ -1,17 +1,22 @@
 import React from "react";
 import _ from "lodash";
 import RGL, { WidthProvider } from "react-grid-layout";
-import Toast from 'react-bootstrap/Toast';
-import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
-
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import sofa from "../assets/sofa.svg";
+import plant from "../assets/plant.svg";
+import bed from "../assets/bed.svg";
+import center from "../assets/center.svg";
+import single from "../assets/single.svg";
+import shelf from "../assets/shelf.svg";
 const ReactGridLayout = WidthProvider(RGL);
 
 export default class NoCompactingLayout extends React.PureComponent {
   static defaultProps = {
     className: "layout",
     items: 0,
-    cols: 12,
+    cols: 18,
     rowHeight: 30,
     onLayoutChange: function() {},
     verticalCompact: false,
@@ -25,11 +30,17 @@ constructor(props) {
   this.state = {
     items: _.range(this.props.items).map(function(i) {
       return {
-        i: i.toString(),
+        i: 0,
         x: i * 2,
         y: 0,
         w: 2,
         h: 2,
+        images : [{id:0,img:sofa},
+                  {id:1,img:plant},
+                  {id:2,img:bed},
+                  {id:3,img: center},
+                  {id:4,img:single},
+                  {id:5,img:shelf}]
       };
     }),
     newCounter: 0
@@ -39,47 +50,49 @@ constructor(props) {
   this.onBreakpointChange = this.onBreakpointChange.bind(this);
 }
 
- findWidth = () =>{
-  if(this.state.i == 0)//sofa
-    this.setState({w:4});
-//   else if(this.state.i == 1)//plant
-//     return 1;
-//   else if(this.state.i == 2)//bed
-//     return 5;
-//   else if(item  == 3)//center table
-//     return 2;
-//   else if(item == 4)//single sofa
-//     return 2;
-//   else if(item == 5)//shelf
-//     return 3;
+ findWidth(i){
+  if(i == 0){//sofa
+    return 4;
+  }
+  else if(i == 1)//plant
+    return 1;
+  else if(i == 2)//bed
+    return 5;
+  else if(i  == 3)//center table
+    return 2;
+  else if(i == 4)//single sofa
+    return 2;
+  else if(i == 5)//shelf
+    return 1;
 }
 
-// findHeight(item){
-//   if(item == 0)//sofa
-//     return 2;
-//   else if(item == 1)//plant
-//     return 1;
-//   else if(item == 2)//bed
-//     return 3;
-//   else if(item  == 3)//center table
-//     return 2;
-//   else if(item == 4)//single sofa
-//     return 2;
-//   else if(item == 5)//shelf
-//     return 2;
-// }
+findHeight(item){
+  if(item == 0)//sofa
+    return 3;
+  else if(item == 1)//plant
+    return 1.5;
+  else if(item == 2)//bed
+    return 6;
+  else if(item  == 3)//center table
+    return 3;
+  else if(item == 4)//single sofa
+    return 4;
+  else if(item == 5)//shelf
+    return 4.5;
+}
 
 createElement(el) {
   const removeStyle = {
     position: "absolute",
-    right: "2px",
+    right: "-4px",
     top: 0,
-    cursor: "pointer"
+    cursor: "pointer",
   };
+  console.log(el.images[0].img);
   const i = el.add ? "+" : el.i;
   return (
     <div key={i} data-grid={el}>
-        <span className="text">{i}</span>
+        <img key={i} src={el.images[i].img}></img>
       <span
         className="remove"
         style={removeStyle}
@@ -97,12 +110,18 @@ onAddItem() {
   this.setState({
     // Add a new item. It must have a unique key!
     items: this.state.items.concat({
-      i: "n" + this.state.newCounter,
+      i: this.state.newCounter,
       x: (this.state.items.length * 2) % (this.state.cols || 12),
       y: Infinity, // puts it at the bottom
-      w: 2,
-      h: 2
-    }),
+      w: this.findWidth(this.state.newCounter),
+      h: this.findHeight(this.state.newCounter),
+      images:[{id:0,img:sofa},
+              {id:1,img:plant},
+              {id:2,img:bed},
+              {id:3,img:center},
+              {id:4,img:single},
+              {id:5,img:shelf}]
+      }),
     // Increment the counter to ensure key is always unique.
     newCounter: this.state.newCounter + 1
   });
@@ -136,9 +155,8 @@ render() {
         >
           {_.map(this.state.items, el => this.createElement(el))}
         </ReactGridLayout>
-        <Container>
-          <Button onClick={this.onAddItem}>Add Item</Button>
-        </Container>
+        <Button onClick={this.onAddItem}>Add Item</Button>
+        
     </div>
   );
 }
