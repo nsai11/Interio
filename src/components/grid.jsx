@@ -36,39 +36,6 @@ const responsive = {
     slidesToSlide: 1 // optional, default to 1.
   }
 };
-
-const furn = {
-  sofa:{
-    h:3,
-    w:4,
-    img: sofa,
-  },
-  plant:{
-    h:1.5,
-    w:1,
-    img: plant,
-  },
-  bed:{
-    h:6,
-    w:5,
-    img: bed,
-  },
-  table:{
-    h:3,
-    w:2,
-    img:center, 
-  },
-  singleSofa:{
-    h:4,
-    w:2,
-    img: single,
-  },
-  shelf:{
-    h:1,
-    w:4.5,
-    img: shelf,
-  }
-};
 export default class NoCompactingLayout extends React.PureComponent {
   static defaultProps = {
     className: "layout",
@@ -90,19 +57,31 @@ constructor(props) {
         y: 0,
         w: 2,
         h: 2,
-        images : [{id:0,img:sofa},
-                  {id:1,img:plant},
-                  {id:2,img:bed},
-                  {id:3,img: center},
-                  {id:4,img:single},
-                  {id:5,img:shelf}]
+        images : "",
       };
     }),
     newCounter: 0
   };
+  this.getImage = this.getImage.bind(this);
   this.findWidth = this.findWidth.bind(this);
   this.onAddItem = this.onAddItem.bind(this);
   this.onBreakpointChange = this.onBreakpointChange.bind(this);
+}
+
+
+getImage(i){
+  if(i == 0)
+    return sofa
+    else if(i == 1)//plant
+    return  plant;
+  else if(i == 2)//bed
+    return bed;
+  else if(i  == 3)//center table
+    return center;
+  else if(i == 4)//single sofa
+    return single;
+  else if(i == 5)//shelf
+    return shelf;
 }
  findWidth(i){
   if(i == 0){//sofa
@@ -142,11 +121,11 @@ createElement(el) {
     top: 0,
     cursor: "pointer",
   };
-  console.log(el.images[0].img);
+  console.log(el.images);
   const i = el.add ? "+" : el.i;
   return (
     <div key={i} data-grid={el}>
-        <img key={i} src={el.images[i].img}></img>
+        <img key={i} src={el.images}></img>
       <span
         className="remove"
         style={removeStyle}
@@ -167,18 +146,12 @@ onAddItem(el) {
       i: this.state.newCounter,
       x: (this.state.items.length * 2) % (this.state.cols || 12),
       y: Infinity, // puts it at the bottom
-      w: this.findWidth(this.state.newCounter),
-      h: this.findHeight(this.state.newCounter),
-      furniture: this.furnitureGiven(el),
-      images:[{id:0,img:sofa},
-              {id:1,img:plant},
-              {id:2,img:bed},
-              {id:3,img:center},
-              {id:4,img:single},
-              {id:5,img:shelf}]
+      w: this.findWidth(el),
+      h: this.findHeight(el),
+      images: this.getImage(el),
       }),
     // Increment the counter to ensure key is always unique.
-    newCounter: el+1
+    newCounter: this.state.newCounter + 1
   });
 }
 
