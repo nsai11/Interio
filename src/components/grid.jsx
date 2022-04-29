@@ -62,56 +62,26 @@ constructor(props) {
     }),
     newCounter: 0
   };
-  this.getImage = this.getImage.bind(this);
-  this.findWidth = this.findWidth.bind(this);
-  this.onAddItem = this.onAddItem.bind(this);
+  this.getData = this.getData.bind(this);
+  //this.findWidth = this.findWidth.bind(this);
+  //this.onAddItem = this.onAddItem.bind(this);
   this.onBreakpointChange = this.onBreakpointChange.bind(this);
 }
 
 
-getImage(i){
+getData(i){
   if(i == 0)
-    return sofa
+    return [sofa,4,3]
     else if(i == 1)//plant
-    return  plant;
+    return  [plant,1,1.5];
   else if(i == 2)//bed
-    return bed;
+    return [bed,5,6];
   else if(i  == 3)//center table
-    return center;
+    return [center,2,3];
   else if(i == 4)//single sofa
-    return single;
+    return [single,2,4];
   else if(i == 5)//shelf
-    return shelf;
-}
- findWidth(i){
-  if(i == 0){//sofa
-    return 4;
-  }
-  else if(i == 1)//plant
-    return 1;
-  else if(i == 2)//bed
-    return 5;
-  else if(i  == 3)//center table
-    return 2;
-  else if(i == 4)//single sofa
-    return 2;
-  else if(i == 5)//shelf
-    return 1;
-}
-
-findHeight(item){
-  if(item == 0)//sofa
-    return 3;
-  else if(item == 1)//plant
-    return 1.5;
-  else if(item == 2)//bed
-    return 6;
-  else if(item  == 3)//center table
-    return 3;
-  else if(item == 4)//single sofa
-    return 4;
-  else if(item == 5)//shelf
-    return 4.5;
+    return [shelf,1,4.5];
 }
 
 createElement(el) {
@@ -140,15 +110,16 @@ createElement(el) {
 onAddItem(el) {
   /*eslint no-console: 0*/
   console.log("adding", "n" + this.state.newCounter);
+  var data = this.getData(el);
   this.setState({
     // Add a new item. It must have a unique key!
     items: this.state.items.concat({
       i: this.state.newCounter,
       x: (this.state.items.length * 2) % (this.state.cols || 12),
       y: Infinity, // puts it at the bottom
-      w: this.findWidth(el),
-      h: this.findHeight(el),
-      images: this.getImage(el),
+      w: data[1],
+      h: data[2],
+      images: data[0],
       }),
     // Increment the counter to ensure key is always unique.
     newCounter: this.state.newCounter + 1
