@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useState,useRef, useEffect } from "react";
 import _ from "lodash";
 import RGL, { WidthProvider } from "react-grid-layout";
 import "react-multi-carousel/lib/styles.css";
@@ -70,7 +70,6 @@ constructor(props) {
   this.getData = this.getData.bind(this);
   this.onBreakpointChange = this.onBreakpointChange.bind(this);
 }
-
 
 getData(i){
   if(i == 0)
@@ -150,6 +149,8 @@ onRemoveItem(i) {
 clear(){
   this.setState(({items: 0}));
 }
+
+
 render() {
   return (
     <div>
@@ -225,11 +226,13 @@ render() {
         >
           {_.map(this.state.items, el => this.createElement(el))}
         </ReactGridLayout>
+        <h4 style={{display:"flex", justifyContent:"center"}}>
+        <span>&#8593;</span>Floor plan above(20 ft x 12 ft Est. unless resized) <span>&#8593;</span>
+        </h4>
     </div>
   );
 }
 }
-
 
 if (process.env.STATIC_EXAMPLES === true) {
   import("./t-hook.jsx").then(fn => fn.default(NoCompactingLayout));
