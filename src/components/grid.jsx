@@ -19,6 +19,7 @@ import centerimg from "../assets/coffee-table-2.jpeg";
 import shelfimg from "../assets/storage-2.jpeg";
 import singleimg from "../assets/sofa-single-1.webp";
 
+
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -36,6 +37,10 @@ const responsive = {
     slidesToSlide: 1 // optional, default to 1.
   }
 };
+
+const margin = {
+  margin: "1em",
+}
 export default class NoCompactingLayout extends React.PureComponent {
   static defaultProps = {
     className: "layout",
@@ -63,8 +68,6 @@ constructor(props) {
     newCounter: 0
   };
   this.getData = this.getData.bind(this);
-  //this.findWidth = this.findWidth.bind(this);
-  //this.onAddItem = this.onAddItem.bind(this);
   this.onBreakpointChange = this.onBreakpointChange.bind(this);
 }
 
@@ -144,16 +147,12 @@ onRemoveItem(i) {
   this.setState({ items: _.reject(this.state.items, { i: i }) });
 }
 
+clear(){
+  this.setState(({items: 0}));
+}
 render() {
   return (
     <div>
-        <ReactGridLayout
-        onLayoutChange={this.onLayoutChange}
-        onBreakpointChange={this.onBreakpointChange}
-        {...this.props}
-        >
-          {_.map(this.state.items, el => this.createElement(el))}
-        </ReactGridLayout>
         <div style={{margin:"5em"}}>
           <Carousel responsive = {responsive} autoPlay={false} infinite={false}>
             <Card style={{margin:"1em"}}>
@@ -217,7 +216,15 @@ render() {
               </Card.Body>
             </Card>
           </Carousel>
+          <button className="btn1 hero-btn" style={margin} onClick={this.clear.bind(this)}>Reset All</button>
         </div>
+        <ReactGridLayout
+        onLayoutChange={this.onLayoutChange}
+        onBreakpointChange={this.onBreakpointChange}
+        {...this.props}
+        >
+          {_.map(this.state.items, el => this.createElement(el))}
+        </ReactGridLayout>
     </div>
   );
 }

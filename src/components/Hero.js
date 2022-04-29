@@ -15,7 +15,7 @@ const Hero = () => {
         <p>
           Re-imagine your living space. Place your furniture on the floor plan below to get an idea on the best layout.
         </p>
-        <button  className="btn1 hero-btn">
+        <button className="btn1 hero-btn">
           Try now!
         </button>
       </article>
