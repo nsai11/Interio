@@ -1,24 +1,23 @@
-import React,{ useState,useRef, useEffect } from "react";
+import React from "react";
 import _ from "lodash";
 import RGL, { WidthProvider } from "react-grid-layout";
 import "react-multi-carousel/lib/styles.css";
 import sofa from "../assets/sofa.svg";
-import plant from "../assets/plant.svg";
 import bed from "../assets/bed.svg";
 import center from "../assets/center.svg";
 import single from "../assets/single.svg";
-import shelf from "../assets/shelf.svg";
 import Card from "react-bootstrap/Card";
 const ReactGridLayout = WidthProvider(RGL);
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import sofaimg from "../assets/sofa-2.jpeg";
-import plantimg from "../assets/plant.jpeg";
 import bedimg from "../assets/bed-2.jpeg";
 import centerimg from "../assets/coffee-table-2.jpeg";
-import shelfimg from "../assets/storage-2.jpeg";
 import singleimg from "../assets/sofa-single-1.webp";
-
+import lamp from "../assets/lamp.svg";
+import tv from "../assets/tv.svg";
+import lampimg from "../assets/lamp.jpeg";
+import tvimg from "../assets/tv.jpeg";
 
 const responsive = {
   desktop: {
@@ -41,6 +40,7 @@ const responsive = {
 const margin = {
   margin: "1em",
 }
+
 export default class NoCompactingLayout extends React.PureComponent {
   static defaultProps = {
     className: "layout",
@@ -50,7 +50,6 @@ export default class NoCompactingLayout extends React.PureComponent {
     onLayoutChange: function() {},
     verticalCompact: false,
   };
-  
 constructor(props) {
   super(props);
 
@@ -74,8 +73,8 @@ constructor(props) {
 getData(i){
   if(i == 0)
     return [sofa,4,3]
-    else if(i == 1)//plant
-    return  [plant,1,1.5];
+    else if(i == 1)//lamp
+    return  [lamp,1,2];
   else if(i == 2)//bed
     return [bed,5,6];
   else if(i  == 3)//center table
@@ -83,7 +82,7 @@ getData(i){
   else if(i == 4)//single sofa
     return [single,2,4];
   else if(i == 5)//shelf
-    return [shelf,1,4.5];
+    return [tv,3,2];
 }
 
 createElement(el) {
@@ -123,12 +122,10 @@ onAddItem(el) {
       h: data[2],
       images: data[0],
       }),
-    // Increment the counter to ensure key is always unique.
     newCounter: this.state.newCounter + 1
   });
 }
 
-// We're using the cols coming back from this to calculate where to add new items.
 onBreakpointChange(breakpoint, cols) {
   this.setState({
     breakpoint: breakpoint,
@@ -167,11 +164,11 @@ render() {
               </Card.Body>
             </Card>
             <Card style={{margin:"1em"}}>
-            <Card.Img src={plantimg} variant="top" style={{height:"10em", width: "10em"}}/>
+            <Card.Img src={lampimg} variant="top" style={{height:"10em", width: "10em"}}/>
               <Card.Body>
-              <Card.Title>Green Plant in Plant Stand </Card.Title>
+              <Card.Title>Tavolo Table lamp </Card.Title>
                 <Card.Text>
-                Add a touch of greenery and warmth to your decor with this Green Plant in Plant Stand from Threshold.
+                The design of the transparent antistatic polycarbonate diffuser is embellished with vertical internal slits.
                 </Card.Text>
                 <button className="btn1 hero-btn" onClick={()=>this.onAddItem(1)}>Add Item</button>
               </Card.Body>
@@ -207,11 +204,11 @@ render() {
               </Card.Body>
             </Card>
             <Card style={{margin:"1em"}}>
-            <Card.Img src={shelfimg} variant="top" style={{height:"10em", width: "10em"}}/>
+            <Card.Img src={tvimg} variant="top" style={{height:"10em", width: "12em"}}/>
               <Card.Body>
-                <Card.Title>Orviston Armoire</Card.Title>
+                <Card.Title>Nexus 50 Inch TV</Card.Title>
                 <Card.Text>
-                Crafted from manufactured oak wood, this piece features two doors that open to reveal an included clothing rod.
+                Slim infinity One Design creates a beautifully designed, premium viewing experience. 
                 </Card.Text>
                 <button className="btn1 hero-btn" onClick={()=>this.onAddItem(5)}>Add Item</button>
               </Card.Body>

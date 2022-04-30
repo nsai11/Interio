@@ -5,6 +5,13 @@ import hero from "../assets/hero.jpg";
 import brush from "../assets/bg.svg";
 
 const Hero = () => {
+  function handleScroll() {
+    window.scroll({
+      top: document.body.offsetHeight,
+      left: 0, 
+      behavior: 'smooth',
+    });
+  }
   return (
     <HeroContainer className="section-center">
       <article className="content">
@@ -15,7 +22,7 @@ const Hero = () => {
         <p>
           Re-imagine your living space. Place your furniture on the floor plan below to get an idea on the best layout.
         </p>
-        <button className="btn1 hero-btn">
+        <button onClick={handleScroll} className="btn1 hero-btn">
           Try now!
         </button>
       </article>
