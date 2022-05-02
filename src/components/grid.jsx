@@ -113,7 +113,7 @@ onAddItem(el) {
   console.log("adding", "n" + this.state.newCounter);
   var data = this.getData(el);
   this.setState({
-    // Add a new item. It must have a unique key!
+    // Add a new item. 
     items: this.state.items.concat({
       i: this.state.newCounter,
       x: (this.state.items.length * 2) % (this.state.cols || 12),
@@ -144,9 +144,8 @@ onRemoveItem(i) {
 }
 
 clear(){
-  this.setState(({items: 0}));
+  this.setState({items: []});
 }
-
 
 render() {
   return (
